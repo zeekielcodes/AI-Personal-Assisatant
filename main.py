@@ -7,11 +7,15 @@ import time
 from joblib import load
 import wikipedia
 import random
-
+from geopy.geocoders import Nominatim
+import folium
+from jokes import joke
+from task_management import TaskManager
+from quotes import advice
+from reminder import set_reminder
 
 class IntentHandler:
     def __init__(self, model_path='intent.joblib'):
-        # Load your trained model here
         self.intent_recognition_model = load(model_path)
 
         self.intent_functions = {
@@ -19,8 +23,11 @@ class IntentHandler:
             "search": self.search,
             "calculate": self.calculate,
             "bye": self.bye,
-            "tell_joke": self.joke,
+            "reminder": set_reminder,
+            "tell_joke": joke,
+            "quotes": advice,
             "wikipedia": self.wiki,
+            "task_manager": self.task_manager,
             "unknown": self.unknown
         }
 
@@ -37,65 +44,62 @@ class IntentHandler:
         return "Goodbye!"
 
     def wiki(self, query):
-        searchResult = wikipedia.search(query)
-        print(searchResult)
-        # Search Wikipedia for the query
-        # page_py = wiki_wiki.page(query)
+        search_result = wikipedia.search(query)
 
-        if len(searchResult) > 0:
+        if len(search_result) > 0:
             try:
-                # If the page exists, get the summary
-                wikiPage = wikipedia.page(searchResult[0])
+                wiki_page = wikipedia.page(search_result[0])
+                summary = str(wiki_page.summary[:300])
+                return summary
             except wikipedia.DisambiguationError as error:
-                wikiPage = wikipedia.page(error.options[0])
-            print(wikiPage.title)
-            summary = str(wikiPage.summary[:300])
-            # summary = page_py.summary[:300]  # Limiting the summary to the first 300 characters for brevity
-            return f"Here is what I found on Wikipedia: {summary}"
+                wiki_page = wikipedia.page(error.options[0])
+                summary = str(wiki_page.summary[:300])
+                return summary
+            except wikipedia.PageError:
+                return "I couldn't find information on that topic in Wikipedia."
         else:
             return "I couldn't find information on that topic in Wikipedia."
-
-
-
-    def joke(self):
-        jokes = [
-            "Why don't scientists trust atoms? Because they make up everything!",
-            "What do you call fake spaghetti? An impasta!",
-            "How does a penguin build its house? Igloos it together!",
-            "Why did the scarecrow win an award? Because he was outstanding in his field!",
-            "Did you hear about the mathematician who's afraid of negative numbers? He'll stop at nothing to avoid them!"
-        ]
-
-        random_joke = random.choice(jokes)
-        return random_joke
-
     def unknown(self):
         return "I'm not sure how to handle that."
+
+    def task_manager(self):
+        task_manager = TaskManager()
+        task_manager.task_manager_menu()
 
     def handle_intent(self, intent, query=None):
         intent_function = self.intent_functions.get(intent, self.unknown)
         if intent == "wikipedia":
+            placeholder_phrases = [
+                "On it",
+                "Rallying round",
+                "Investigating now...",
+                "Exploring the data...",
+                "Searching for you...",
+                "Fetching the details...",
+                "In the information gathering phase...",
+                "Delving into the archives...",
+                "Working on that request...",
+                "Scouring the resources...",
+                "Compiling the data...",
+                "Digging into the databases..."
+            ]
+            random_placeholder = random.choice(placeholder_phrases)
+            assistant.speak(f"{random_placeholder}. Give me a few seconds")
             return self.wiki(query)
         else:
             return intent_function()
 
     def recognize_intent(self, speech):
-        # Replace this with your actual intent recognition logic using the loaded model
-        # For simplicity, assume the model returns the probabilities of each class
         predicted_probs = self.intent_recognition_model.predict_proba([speech])[0]
         print("Predicted Probabilities:", predicted_probs)
 
-        # Use argmax to get the index of the class with the highest probability
         predicted_intent_index = predicted_probs.argmax()
-
-        # Get the classes (intents) from the model
         classes = self.intent_recognition_model.classes_
-
-        # Get the predicted intent based on the index
         predicted_intent = classes[predicted_intent_index]
 
         print(f"Predicted intent: {predicted_intent}")
         return predicted_intent
+
 
 class PersonalAssistant:
     def __init__(self, activation_word="jasper"):
