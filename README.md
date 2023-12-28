@@ -42,6 +42,6 @@ If you encounter any issues or have feedback, please open an issue on the GitHub
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute the code for personal or commercial use.
+Feel free to modify and distribute the code for personal or commercial use.
 
 Happy coding, and enjoy your AI Personal Assistant!
