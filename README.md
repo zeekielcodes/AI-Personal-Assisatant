@@ -13,9 +13,7 @@ When the user speaks, the PA uses the Google Speech-to-Text library to transcrib
 
 The program checks if the text contains termination word like "bye", if it does, the program terminates, the GUI turns red and closes after three seconds, if it doesn't, the text is then sent to the saved model to determine the intent of the input.
 
-The 
-https://github.com/zeekielcodes/AI-PA-model/blob/main/my-dataset.csv
-model ([https://github.com/zeekielcodes/AI-PA-model/blob/main/model.ipynb]) trained on a small dataset ([https://github.com/zeekielcodes/AI-PA-model/blob/main/my-dataset.csv]) using the Multinomial Naive Bayes Algorithm from Scikit-Learn processes the text and returns a predicted intent.
+The [model] (https://github.com/zeekielcodes/AI-PA-model/blob/main/model.ipynb) trained on a small [dataset] (https://github.com/zeekielcodes/AI-PA-model/blob/main/my-dataset.csv) using the Multinomial Naive Bayes Algorithm from Scikit-Learn processes the text and returns a predicted intent.
 
 In the program, each possible intent is mapped to a function which gets called depending on what intent the model returns.
 
