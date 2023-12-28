@@ -23,13 +23,15 @@ Follow these steps to get started with the AI Personal Assistant:
    cd ai-personal-assistant
 
 2. **Install Dependencies:**
+   ```python
+   pip install -r requirements.txt
 
-3. **Configuration:**
+4. **Configuration:**
 Customize the configuration files to set up your preferences and API keys.
 
-4. **Run the Assistant:**
+5. **Run the Assistant:**
 
-5. **Interact:**
+6. **Interact:**
 Start interacting with your personal assistant and explore its capabilities!
 
 ## Contributing
