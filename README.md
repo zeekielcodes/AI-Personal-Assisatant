@@ -1,8 +1,27 @@
-# AI Personal Assistant - Jasper
+# AI Personal Assistant
 
 ## Overview
 
-Welcome to the AI Personal Assistant repository! This project is designed to provide you with a powerful and customizable artificial intelligence assistant that can assist you with various tasks, streamline your daily activities, and enhance your overall productivity.
+Welcome to the AI Personal Assistant repository! This project was developed as a final year project by me, it is aimed at being a powerful and customizable artificial intelligence assistant that can assist you with various tasks, streamline your daily activities, and enhance your overall productivity. - This is progress.
+
+## How it works
+The AI assistant is activated at the mention of the activation word - "Jasper" by default.
+
+On first launch, all speeches, though recognized by the PA are not addressed until the activation word is mentioned, when activation word is mentioned, the GUI interface initially black turns green and the PA can now listen o prompt and address them.
+
+When the user speaks, the PA uses the Google Speech-to-Text library to transcribe the audio received from the user's microphone to text.
+
+The program checks if the text contains termination word like "bye", if it does, the program terminates, the GUI turns red and closes after three seconds, if it doesn't, the text is then sent to the saved model to determine the intent of the input.
+
+The model trained on a small dataset(https://github.com/zeekielcodes) using the Multinomial Naive Bayes Algorithm from Scikit-Learn processes the text and returns a predicted intent.
+
+In the program, each possible intent is mapped to a function which gets called depending on what intent the model returns.
+
+Some features have not been completely integrated, some implemented, but the dataset for the model has not been modified and model retrained to integrate/activate them.
+
+Inspired by Jarvis in Iron Man - This is my staying point and progress, depending on when you're viewing this, cause I'll come back to improve this as I grow in my programming career.
+
+Contributions are welcomed too.
 
 ## Features
 
@@ -30,8 +49,10 @@ Follow these steps to get started with the AI Personal Assistant:
 Customize the configuration files to set up your preferences and API keys.
 
 5. **Run the Assistant:**
+   ```python
+   python main.py
 
-6. **Interact:**
+7. **Interact:**
 Start interacting with your personal assistant and explore its capabilities!
 
 ## Contributing
@@ -42,7 +63,7 @@ If you would like to contribute to the development of the AI Personal Assistant,
 
 If you encounter any issues or have feedback, please open an issue on the GitHub repository. Your input is valuable in improving the overall functionality and user experience.
 
-## License
+## Usage and Access
 
 Feel free to modify and distribute the code for personal or commercial use.
 
