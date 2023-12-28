@@ -1,4 +1,4 @@
-# AI Personal Assistant
+# AI Personal Assistant - Jasper
 
 ## Overview
 
